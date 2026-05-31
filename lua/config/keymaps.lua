@@ -6,10 +6,10 @@
 -- Snacks.picker internals: if explorer is open, pick() calls current:close().
 -- Instead: get the live picker and focus it, or open fresh if not present.
 vim.keymap.set("n", "<leader>e", function()
-  local explorer = Snacks.picker.get({ source = "explorer" })[1]
-  if explorer then
-    explorer:focus()
-  else
-    Snacks.explorer.open()
-  end
+    local explorer = Snacks.picker.get({ source = "explorer" })[1]
+    if explorer then
+        explorer:focus()
+    else
+        Snacks.explorer.open()
+    end
 end, { desc = "Explorer (focus)", silent = true })

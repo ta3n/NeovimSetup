@@ -51,13 +51,70 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
--- Refresh code lens for C# after entering a buffer or saving.
--- Shows "X references | X implementations" above methods, classes, properties.
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-  pattern = "*.cs",
+-- Code lens inline display: convert virt_lines (separate line above) → virt_text (eol, same line).
+-- Default nvim rendering puts code lens on its own virtual line above the code, which looks
+-- misaligned. This patches it to show inline at the end of the declaration line instead.
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  once = true,
   callback = function()
-    if vim.lsp.codelens then
-      vim.lsp.codelens.refresh({ bufnr = 0 })
+    local pending = {}
+
+    local function get_codelens_namespaces()
+      local result = {}
+      for name, ns_id in pairs(vim.api.nvim_get_namespaces()) do
+        if name:match("^nvim%.lsp%.codelens:") then
+          result[ns_id] = true
+        end
+      end
+      return result
     end
+
+    local function convert_to_eol(bufnr)
+      if not vim.api.nvim_buf_is_valid(bufnr) then
+        return
+      end
+      for ns_id in pairs(get_codelens_namespaces()) do
+        local marks = vim.api.nvim_buf_get_extmarks(bufnr, ns_id, 0, -1, { details = true })
+        for _, mark in ipairs(marks) do
+          local id, row, _, details = mark[1], mark[2], mark[3], mark[4]
+          if details.virt_lines then
+            local virt_text = {}
+            for _, vl in ipairs(details.virt_lines) do
+              for _, chunk in ipairs(vl) do
+                if chunk[1] ~= "" then
+                  table.insert(virt_text, chunk)
+                end
+              end
+            end
+            if #virt_text > 0 then
+              vim.api.nvim_buf_del_extmark(bufnr, ns_id, id)
+              vim.api.nvim_buf_set_extmark(bufnr, ns_id, row, 0, {
+                virt_text = { { "  ", "LspCodeLensSeparator" }, unpack(virt_text) },
+                virt_text_pos = "eol",
+                hl_mode = "combine",
+              })
+            end
+          end
+        end
+      end
+    end
+
+    local ns = vim.api.nvim_create_namespace("custom.codelens.inline")
+    vim.api.nvim_set_decoration_provider(ns, {
+      on_win = function(_, _, bufnr, _, _)
+        if vim.bo[bufnr].filetype ~= "cs" then
+          return
+        end
+        if pending[bufnr] then
+          return
+        end
+        pending[bufnr] = true
+        vim.schedule(function()
+          pending[bufnr] = nil
+          convert_to_eol(bufnr)
+        end)
+      end,
+    })
   end,
 })

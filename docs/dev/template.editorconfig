@@ -1,0 +1,84 @@
+# Copy this file to the root of your .NET project as ".editorconfig"
+# Works with: dotnet format, Rider, VS Code, Visual Studio
+# Adjust csharp_style_* rules to match your team's conventions.
+
+root = true
+
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# C# source files
+[*.cs]
+indent_style = space
+indent_size = 4
+
+# Import directives
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+
+# var usage
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_elsewhere = false:suggestion
+
+# Expression body
+csharp_style_expression_bodied_methods = false:silent
+csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_constructors = false:silent
+
+# Namespace style (file-scoped is C# 10+)
+csharp_style_namespace_declarations = file_scoped:suggestion
+
+# Braces
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+
+# Spacing
+csharp_space_after_cast = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+
+# Null checks
+csharp_style_prefer_null_check_over_type_check = true:suggestion
+dotnet_style_null_propagation = true:suggestion
+dotnet_style_coalesce_expression = true:suggestion
+
+# Pattern matching
+csharp_style_prefer_pattern_matching = true:suggestion
+csharp_style_prefer_switch_expression = true:suggestion
+
+# Diagnostics severity (adjust to team preference)
+dotnet_diagnostic.CA1822.severity = suggestion   # Mark members as static
+dotnet_diagnostic.CA1062.severity = none          # Validate arguments of public methods (handled by nullable)
+
+# .NET project files
+[*.{csproj,sln,props,targets}]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+
+# JSON / YAML config files
+[*.{json,jsonc}]
+indent_style = space
+indent_size = 2
+
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
+
+# Dockerfile
+[Dockerfile*]
+indent_style = space
+indent_size = 4
+
+# Shell scripts
+[*.sh]
+indent_style = space
+indent_size = 2

@@ -19,29 +19,29 @@ return {
     },
     keys = {
       -- Run
-      { "<leader>nr", function() require("easy-dotnet").run() end,           desc = "Run" },
-      { "<leader>nR", function() require("easy-dotnet").run_default() end,   desc = "Run default" },
-      { "<leader>nw", function() require("easy-dotnet").watch() end,         desc = "Watch" },
-      { "<leader>nW", function() require("easy-dotnet").watch_default() end, desc = "Watch default" },
+      { "<leader>nr",  function() require("easy-dotnet").run() end,                     desc = "Run" },
+      { "<leader>nR",  function() require("easy-dotnet").run_default() end,             desc = "Run default" },
+      { "<leader>nw",  function() require("easy-dotnet").watch() end,                   desc = "Watch" },
+      { "<leader>nW",  function() require("easy-dotnet").watch_default() end,           desc = "Watch default" },
       -- Build
-      { "<leader>nb", function() require("easy-dotnet").build() end,                  desc = "Build" },
-      { "<leader>nB", function() require("easy-dotnet").build_solution() end,         desc = "Build solution" },
-      { "<leader>nq", function() require("easy-dotnet").build_quickfix() end,         desc = "Build (quickfix)" },
+      { "<leader>nb",  function() require("easy-dotnet").build() end,                   desc = "Build" },
+      { "<leader>nB",  function() require("easy-dotnet").build_solution() end,          desc = "Build solution" },
+      { "<leader>nq",  function() require("easy-dotnet").build_quickfix() end,          desc = "Build (quickfix)" },
       -- Test
-      { "<leader>nt", function() require("easy-dotnet").test() end,          desc = "Test" },
-      { "<leader>nT", function() require("easy-dotnet").test_solution() end, desc = "Test solution" },
-      { "<leader>nX", function() require("easy-dotnet").testrunner() end,    desc = "Test runner" },
+      { "<leader>nt",  function() require("easy-dotnet").test() end,                    desc = "Test" },
+      { "<leader>nT",  function() require("easy-dotnet").test_solution() end,           desc = "Test solution" },
+      { "<leader>nX",  function() require("easy-dotnet").testrunner() end,              desc = "Test runner" },
       -- Debug
-      { "<leader>nd", function() require("easy-dotnet").debug() end,         desc = "Debug" },
-      { "<leader>nD", function() require("easy-dotnet").debug_default() end, desc = "Debug default" },
+      { "<leader>nd",  function() require("easy-dotnet").debug() end,                   desc = "Debug" },
+      { "<leader>nD",  function() require("easy-dotnet").debug_default() end,           desc = "Debug default" },
       -- Packages
-      { "<leader>np", function() require("easy-dotnet").add_package() end,    desc = "Add NuGet package" },
-      { "<leader>nP", function() require("easy-dotnet").remove_package() end, desc = "Remove package" },
-      { "<leader>no", function() require("easy-dotnet").outdated() end,       desc = "Outdated packages" },
+      { "<leader>np",  function() require("easy-dotnet").add_package() end,             desc = "Add NuGet package" },
+      { "<leader>nP",  function() require("easy-dotnet").remove_package() end,          desc = "Remove package" },
+      { "<leader>no",  function() require("easy-dotnet").outdated() end,                desc = "Outdated packages" },
       -- Utilities
-      { "<leader>ns", function() require("easy-dotnet").secrets() end, desc = "User secrets" },
-      { "<leader>nc", function() require("easy-dotnet").clean() end,   desc = "Clean" },
-      { "<leader>nx", function() require("easy-dotnet").restore() end, desc = "Restore" },
+      { "<leader>ns",  function() require("easy-dotnet").secrets() end,                 desc = "User secrets" },
+      { "<leader>nc",  function() require("easy-dotnet").clean() end,                   desc = "Clean" },
+      { "<leader>nx",  function() require("easy-dotnet").restore() end,                 desc = "Restore" },
       -- EF migrations
       { "<leader>nea", function() require("easy-dotnet").ef_migrations_add() end,       desc = "Add migration" },
       { "<leader>ner", function() require("easy-dotnet").ef_migrations_remove() end,    desc = "Remove last migration" },
